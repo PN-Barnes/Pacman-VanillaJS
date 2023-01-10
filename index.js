@@ -1,13 +1,16 @@
 import { LEVEL, OBJECT_TYPE } from './setup';
 
+// Classes
+import GameBoard from './GameBoard';
 // Document Elements
 const gameGrid = document.querySelector('#game');
 const scoreTable = document.querySelector('#score');
 const startButton = document.querySelector('#start-button');
 
-// Game Constants
-const powerPillTime = 10000;
-const globalSpeed = 80;
+// Game Constants => Capitol for clear definition of constant through entire game function
+const POWER_PILL_TIME = 10000; // Milliseconds
+const GLOBAL_SPEED = 80; // Milliseconds
+const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
 
 // Setup
 let score = 0;
