@@ -257,6 +257,23 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
+},{}],"node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
 },{}],"GameBoard.js":[function(require,module,exports) {
 "use strict";
 
@@ -271,13 +288,20 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
 var _setup = require("./setup");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GameBoard = /*#__PURE__*/function () {
   function GameBoard(DOMGrid) {
+    var _this = this;
+
     (0, _classCallCheck2.default)(this, GameBoard);
+    (0, _defineProperty2.default)(this, "objectExists", function (position, object) {
+      return _this.grid[position].classList.contains(object);
+    });
     this.dotCount = 0;
     this.grid = [];
     this.DOMGrid = DOMGrid;
@@ -294,7 +318,7 @@ var GameBoard = /*#__PURE__*/function () {
   }, {
     key: "createGrid",
     value: function createGrid(level) {
-      var _this = this;
+      var _this2 = this;
 
       this.dotCount = 0;
       this.grid = [];
@@ -305,12 +329,12 @@ var GameBoard = /*#__PURE__*/function () {
         div.classList.add('square', _setup.CLASS_LIST[square]);
         div.style.cssText = "width: ".concat(_setup.CELL_SIZE, "px; height: ").concat(_setup.CELL_SIZE, "px;");
 
-        _this.DOMGrid.appendChild(div);
+        _this2.DOMGrid.appendChild(div);
 
-        _this.grid.push(div);
+        _this2.grid.push(div);
 
         if (_setup.CLASS_LIST[square] === _setup.OBJECT_TYPE.DOT) {
-          _this.dotCount++;
+          _this2.dotCount++;
         }
       });
     }
@@ -327,11 +351,6 @@ var GameBoard = /*#__PURE__*/function () {
       var _this$grid$position$c2;
 
       (_this$grid$position$c2 = this.grid[position].classList).remove.apply(_this$grid$position$c2, (0, _toConsumableArray2.default)(object));
-    }
-  }, {
-    key: "objectExists",
-    value: function objectExists(position, object) {
-      return this.grid[position].classList.contains(object);
     }
   }, {
     key: "rotateDiv",
@@ -351,7 +370,7 @@ var GameBoard = /*#__PURE__*/function () {
 
 var _default = GameBoard;
 exports.default = _default;
-},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js"}],"Pacman.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","@babel/runtime/helpers/defineProperty":"node_modules/@babel/runtime/helpers/defineProperty.js","./setup":"setup.js"}],"Pacman.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -422,6 +441,7 @@ var Pacman = /*#__PURE__*/function () {
   }, {
     key: "handleKeyInput",
     value: function handleKeyInput(e, objectExist) {
+      console.log(e);
       var direction;
 
       if (e.keyCode >= 37 && e.keyCode <= 40) {
@@ -476,7 +496,21 @@ var checkCollision = function checkCollision(pacman, ghosts) {};
 
 var gameLoop = function gameLoop(pacman, ghosts) {};
 
-var startGame = function startGame() {};
+var startGame = function startGame() {
+  gameWon = false;
+  powerActive = false;
+  score = 0;
+  startButton.classList.add('hide');
+  gameBoard.createGrid(_setup.LEVEL);
+  var pacman = new _Pacman.default(2, 287);
+  gameBoard.addObject(287, [_setup.OBJECT_TYPE.PACMAN]);
+  document.addEventListener('keydown', function (e) {
+    pacman.handleKeyInput(e, gameBoard.objectExists); // objectExists will have to be binded to be able to reference => gameBoard.objectExists.bind(gameBoard). However, to avoid this gameBoard.js => objectExist method is changed to arrow fucntion // line 42
+  });
+}; // * Initialize Game
+
+
+startButton.addEventListener('click', startGame);
 },{"./setup":"setup.js","./GameBoard":"GameBoard.js","./Pacman":"Pacman.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

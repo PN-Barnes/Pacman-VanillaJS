@@ -47,6 +47,7 @@ class Pacman {
   }
 
   handleKeyInput(e, objectExist) {
+    console.log(e);
     let direction;
 
     if (e.keyCode >= 37 && e.keyCode <= 40) {

@@ -39,9 +39,9 @@ class GameBoard {
   removeObject(position, object) {
     this.grid[position].classList.remove(...object);
   }
-  objectExists(position, object) {
+  objectExists = (position, object) => {
     return this.grid[position].classList.contains(object);
-  }
+  };
 
   rotateDiv(position, degrees) {
     this.grid[position].style.transform = `rotate(${degrees}deg)`;
