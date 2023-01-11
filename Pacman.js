@@ -1,4 +1,4 @@
-import { OBJECT_TYPE } from './setup';
+import { OBJECT_TYPE, DIRECTIONS } from './setup';
 
 class Pacman {
   constructor(speed, startPosition) {
@@ -16,5 +16,29 @@ class Pacman {
       this.timer = 0;
       return true;
     }
+    this.timer++;
+  }
+
+  getNextMove(objectExist) {
+    let nextMovePosition = this.pos + this.dir.movement;
+
+    if (
+      objectExist(nextMovePosition, OBJECT_TYPE.WALL) ||
+      objectExist(nextMovePosition, OBJECT_TYPE.GHOSTLAIR)
+    ) {
+      nextMovePosition = this.position;
+    }
+
+    return {
+      nextMovePosition,
+      direction: this.dir,
+    };
+  }
+
+  makemove() {
+    const classesToRemove = [OBJECT_TYPE.PACMAN];
+    const classesToAdd = [OBJECT_TYPE.PACMAN];
+
+    return { classesToRemove, classesToAdd };
   }
 }
