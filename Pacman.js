@@ -4,14 +4,14 @@ class Pacman {
   constructor(speed, startPosition) {
     this.positon = startPosition;
     this.speed = speed;
-    this.dir = null;
+    this.direction = null;
     this.timer = 0;
     this.powerPill = false;
     this.rotation = true;
   }
 
   shouldMove() {
-    if (!this.dir) return false;
+    if (!this.direction) return false;
     if (this.timer === this.speed) {
       this.timer = 0;
       return true;
@@ -20,7 +20,7 @@ class Pacman {
   }
 
   getNextMove(objectExist) {
-    let nextMovePosition = this.pos + this.dir.movement;
+    let nextMovePosition = this.pos + this.direction.movement;
 
     if (
       objectExist(nextMovePosition, OBJECT_TYPE.WALL) ||
@@ -31,7 +31,7 @@ class Pacman {
 
     return {
       nextMovePosition,
-      direction: this.dir,
+      direction: this.direction,
     };
   }
 
@@ -41,4 +41,24 @@ class Pacman {
 
     return { classesToRemove, classesToAdd };
   }
+
+  setNewPosition(nextMovePosition) {
+    this.positon = nextMovePosition;
+  }
+
+  handleKeyInput(e, objectExist) {
+    let direction;
+
+    if (e.keyCode >= 37 && e.keyCode <= 40) {
+      direction = DIRECTIONS[e.key];
+    } else {
+      return;
+    }
+
+    const nextMovePosition = this.position + direction.movement;
+    if (objectExist(nextMovePosition, OBJECT_TYPE.WALL)) return;
+    this.direction = direction;
+  }
 }
+
+export default Pacman;

@@ -2,6 +2,7 @@ import { LEVEL, OBJECT_TYPE } from './setup';
 
 // Classes
 import GameBoard from './GameBoard';
+import Pacman from './Pacman';
 // Document Elements
 const gameGrid = document.querySelector('#game');
 const scoreTable = document.querySelector('#score');
