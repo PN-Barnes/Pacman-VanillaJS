@@ -11,7 +11,9 @@ class Pacman {
   }
 
   shouldMove() {
-    if (!this.dir) return false;
+    // Don't move before a key is pressed
+    if (!this.dir) return;
+
     if (this.timer === this.speed) {
       this.timer = 0;
       return true;
@@ -21,7 +23,7 @@ class Pacman {
 
   getNextMove(objectExist) {
     let nextMovePos = this.pos + this.dir.movement;
-
+    // Do we collide with a wall?
     if (
       objectExist(nextMovePos, OBJECT_TYPE.WALL) ||
       objectExist(nextMovePos, OBJECT_TYPE.GHOSTLAIR)
@@ -29,10 +31,7 @@ class Pacman {
       nextMovePos = this.pos;
     }
 
-    return {
-      nextMovePos,
-      dir: this.dir,
-    };
+    return { nextMovePos, direction: this.dir };
   }
 
   makeMove() {
@@ -47,7 +46,6 @@ class Pacman {
   }
 
   handleKeyInput = (e, objectExist) => {
-    console.log(e);
     let dir;
 
     if (e.keyCode >= 37 && e.keyCode <= 40) {
@@ -57,7 +55,6 @@ class Pacman {
     }
 
     const nextMovePos = this.pos + dir.movement;
-    console.log(nextMovePos);
     if (objectExist(nextMovePos, OBJECT_TYPE.WALL)) return;
     this.dir = dir;
   };

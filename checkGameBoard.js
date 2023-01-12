@@ -7,10 +7,11 @@ class GameBoard {
     this.DOMGrid = DOMGrid;
   }
 
-  showGameStatus(gameWon) {
+  showGameStatus(gameWin) {
+    // Create and show game win or game over
     const div = document.createElement('div');
     div.classList.add('game-status');
-    div.innerHTML = `${gameWon ? 'WIN' : 'GAME OVER!'}`;
+    div.innerHTML = `${gameWin ? 'WIN!' : 'GAME OVER!'}`;
     this.DOMGrid.appendChild(div);
   }
 
@@ -18,6 +19,7 @@ class GameBoard {
     this.dotCount = 0;
     this.grid = [];
     this.DOMGrid.innerHTML = '';
+    // First set correct amount of columns based on Grid Size and Cell Size
     this.DOMGrid.style.cssText = `grid-template-columns: repeat(${GRID_SIZE}, ${CELL_SIZE}px);`;
 
     level.forEach((square) => {
@@ -26,10 +28,9 @@ class GameBoard {
       div.style.cssText = `width: ${CELL_SIZE}px; height: ${CELL_SIZE}px;`;
       this.DOMGrid.appendChild(div);
       this.grid.push(div);
-      // ADD DOTS
-      if (CLASS_LIST[square] === OBJECT_TYPE.DOT) {
-        this.dotCount++;
-      }
+
+      // Add dots
+      if (CLASS_LIST[square] === OBJECT_TYPE.DOT) this.dotCount++;
     });
   }
 
@@ -45,29 +46,31 @@ class GameBoard {
     return this.grid[pos].classList.contains(object);
   }
 
-  rotateDiv(pos, degrees) {
-    this.grid[pos].style.transform = `rotate(${degrees}deg)`;
+  rotateDiv(pos, deg) {
+    this.grid[pos].style.transform = `rotate(${deg}deg)`;
   }
 
   moveCharacter(character) {
     if (character.shouldMove()) {
-      const { nextMovePos, dir } = character.getNextMove(
+      const { nextMovePos, direction } = character.getNextMove(
         this.objectExist.bind(this)
       );
-
       const { classesToRemove, classesToAdd } = character.makeMove();
 
       if (character.rotation && nextMovePos !== character.pos) {
+        // Rotate
         this.rotateDiv(nextMovePos, character.dir.rotation);
+        // Rotate the previous div back
         this.rotateDiv(character.pos, 0);
       }
 
       this.removeObject(character.pos, classesToRemove);
       this.addObject(nextMovePos, classesToAdd);
 
-      character.setNewPos(nextMovePos, dir);
+      character.setNewPos(nextMovePos, direction);
     }
   }
+
   static createGameBoard(DOMGrid, level) {
     const board = new this(DOMGrid);
     board.createGrid(level);

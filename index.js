@@ -24,9 +24,12 @@ const gameOver = (pacman, grid) => {};
 
 const checkCollision = (pacman, ghosts) => {};
 
-const gameLoop = (pacman, ghosts) => {};
+function gameLoop(pacman, ghosts) {
+  console.log('works');
+  gameBoard.moveCharacter(pacman);
+}
 
-const startGame = () => {
+function startGame() {
   gameWon = false;
   powerActive = false;
   score = 0;
@@ -39,10 +42,12 @@ const startGame = () => {
 
   gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
   document.addEventListener('keydown', (e) => {
-    pacman.handleKeyInput(e, gameBoard.objectExists);
+    pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard));
     // objectExists will have to be binded to be able to reference => gameBoard.objectExists.bind(gameBoard). However, to avoid this gameBoard.js => objectExist method is changed to arrow fucntion // line 42
   });
-};
+
+  timer = setInterval(() => gameLoop(pacman), GLOBAL_SPEED);
+}
 
 // * Initialize Game
 startButton.addEventListener('click', startGame);
