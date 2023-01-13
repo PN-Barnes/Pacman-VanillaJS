@@ -549,6 +549,12 @@ var Ghost = /*#__PURE__*/function () {
         classesToAdd: classesToAdd
       };
     }
+  }, {
+    key: "setNewPos",
+    value: function setNewPos(nextMovePos, direction) {
+      this.pos = nextMovePos;
+      this.dir = direction;
+    }
   }]);
   return Ghost;
 }();
