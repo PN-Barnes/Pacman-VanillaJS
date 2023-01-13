@@ -26,7 +26,6 @@ const gameOver = (pacman, grid) => {};
 const checkCollision = (pacman, ghosts) => {};
 
 function gameLoop(pacman, ghosts) {
-  console.log('works');
   gameBoard.moveCharacter(pacman);
 }
 

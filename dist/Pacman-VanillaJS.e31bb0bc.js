@@ -416,7 +416,6 @@ var Pacman = /*#__PURE__*/function () {
 
     (0, _classCallCheck2.default)(this, Pacman);
     (0, _defineProperty2.default)(this, "handleKeyInput", function (e, objectExist) {
-      console.log(e);
       var dir;
 
       if (e.keyCode >= 37 && e.keyCode <= 40) {
@@ -490,27 +489,48 @@ exports.default = _default;
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
 var _setup = require("./setup");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Ghost = function Ghost() {
-  var speed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
-  var startPos = arguments.length > 1 ? arguments[1] : undefined;
-  var movement = arguments.length > 2 ? arguments[2] : undefined;
-  var name = arguments.length > 3 ? arguments[3] : undefined;
-  (0, _classCallCheck2.default)(this, Ghost);
-  this.name = name;
-  this.movement = movement;
-  this.startPos = startPos;
-  this.pos = startPos;
-  this.dir = _setup.DIRECTIONS.ArrowRight;
-  this.speed = speed;
-  this.timer = 0;
-  this.isScared = false;
-  this.rotation = false;
-};
-},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","./setup":"setup.js"}],"index.js":[function(require,module,exports) {
+var Ghost = /*#__PURE__*/function () {
+  function Ghost() {
+    var speed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+    var startPos = arguments.length > 1 ? arguments[1] : undefined;
+    var movement = arguments.length > 2 ? arguments[2] : undefined;
+    var name = arguments.length > 3 ? arguments[3] : undefined;
+    (0, _classCallCheck2.default)(this, Ghost);
+    this.name = name;
+    this.movement = movement;
+    this.startPos = startPos;
+    this.pos = startPos;
+    this.dir = _setup.DIRECTIONS.ArrowRight;
+    this.speed = speed;
+    this.timer = 0;
+    this.isScared = false;
+    this.rotation = false;
+  }
+
+  (0, _createClass2.default)(Ghost, [{
+    key: "shouldMove",
+    value: function shouldMove() {
+      if (this.timer === this.speed) {
+        this.timer = 0;
+        return true;
+      }
+
+      this.timer++;
+      return false;
+    }
+  }, {
+    key: "getNextMove",
+    value: function getNextMove(objectExist) {}
+  }]);
+  return Ghost;
+}();
+},{"@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _setup = require("./setup");
@@ -547,7 +567,6 @@ var gameOver = function gameOver(pacman, grid) {};
 var checkCollision = function checkCollision(pacman, ghosts) {};
 
 function gameLoop(pacman, ghosts) {
-  console.log('works');
   gameBoard.moveCharacter(pacman);
 }
 
@@ -597,7 +616,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57646" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64672" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

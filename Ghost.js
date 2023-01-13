@@ -12,4 +12,15 @@ class Ghost {
     this.isScared = false;
     this.rotation = false;
   }
+
+  shouldMove() {
+    if (this.timer === this.speed) {
+      this.timer = 0;
+      return true;
+    }
+    this.timer++;
+    return false;
+  }
+
+  getNextMove(objectExist) {}
 }
