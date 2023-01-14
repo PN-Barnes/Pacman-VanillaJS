@@ -27,7 +27,10 @@ const gameOver = (pacman, grid) => {
     pacman.handleKeyInput(e, gameBoard.objectExist)
   );
 
-  gameBoard.showGameStatus(gameWin);
+  gameBoard.showGameStatus(gameWon);
+  clearInterval(timer);
+
+  startButton.classList.remove('hide');
 };
 
 const checkCollision = (pacman, ghosts) => {

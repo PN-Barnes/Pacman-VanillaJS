@@ -454,7 +454,6 @@ var Pacman = /*#__PURE__*/function () {
       }
 
       var nextMovePos = _this.pos + dir.movement;
-      console.log(nextMovePos);
       if (objectExist(nextMovePos, _setup.OBJECT_TYPE.WALL)) return;
       _this.dir = dir;
     });
@@ -635,7 +634,9 @@ var gameOver = function gameOver(pacman, grid) {
   document.removeEventListener('keydown', function (e) {
     return pacman.handleKeyInput(e, gameBoard.objectExist);
   });
-  gameBoard.showGameStatus(gameWin);
+  gameBoard.showGameStatus(gameWon);
+  clearInterval(timer);
+  startButton.classList.remove('hide');
 };
 
 var checkCollision = function checkCollision(pacman, ghosts) {
