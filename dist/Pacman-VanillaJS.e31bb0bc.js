@@ -375,7 +375,7 @@ var GameBoard = /*#__PURE__*/function () {
       if (character.shouldMove()) {
         var _character$getNextMov = character.getNextMove(this.objectExist.bind(this)),
             nextMovePos = _character$getNextMov.nextMovePos,
-            dir = _character$getNextMov.dir;
+            direction = _character$getNextMov.direction;
 
         var _character$makeMove = character.makeMove(),
             classesToRemove = _character$makeMove.classesToRemove,
@@ -388,7 +388,7 @@ var GameBoard = /*#__PURE__*/function () {
 
         this.removeObject(character.pos, classesToRemove);
         this.addObject(nextMovePos, classesToAdd);
-        character.setNewPos(nextMovePos, dir);
+        character.setNewPos(nextMovePos, direction);
       }
     }
   }], [{
@@ -690,7 +690,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56174" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -51,7 +51,7 @@ class GameBoard {
 
   moveCharacter(character) {
     if (character.shouldMove()) {
-      const { nextMovePos, dir } = character.getNextMove(
+      const { nextMovePos, direction } = character.getNextMove(
         this.objectExist.bind(this)
       );
 
@@ -65,7 +65,7 @@ class GameBoard {
       this.removeObject(character.pos, classesToRemove);
       this.addObject(nextMovePos, classesToAdd);
 
-      character.setNewPos(nextMovePos, dir);
+      character.setNewPos(nextMovePos, direction);
     }
   }
   static createGameBoard(DOMGrid, level) {
