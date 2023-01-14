@@ -1,7 +1,7 @@
 import { LEVEL, OBJECT_TYPE } from './setup';
-import { randmomMovement } from './ghostMove';
+import { randomMovement } from './ghostmoves';
 
-// Classes
+// Classesss
 import GameBoard from './GameBoard';
 import Pacman from './Pacman';
 import Ghost from './Ghost';
@@ -28,6 +28,8 @@ const checkCollision = (pacman, ghosts) => {};
 
 function gameLoop(pacman, ghosts) {
   gameBoard.moveCharacter(pacman);
+
+  ghosts.forEach((ghost) => gameBoard.moveCharacter(ghost));
 }
 
 function startGame() {
@@ -40,20 +42,21 @@ function startGame() {
   gameBoard.createGrid(LEVEL);
 
   const pacman = new Pacman(2, 287);
-  const ghost = [
-    new Ghost(5, 188, randmomMovement, OBJECT_TYPE.BLINKY),
-    new Ghost(4, 209, randmomMovement, OBJECT_TYPE.PINKY),
-    new Ghost(3, 230, randmomMovement, OBJECT_TYPE.INKY),
-    new Ghost(2, 251, randmomMovement, OBJECT_TYPE.CLYDE),
+  gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
+  document.addEventListener(
+    'keydown',
+    (e) => pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard))
+    // objectExists will have to be binded to be able to reference => gameBoard.objectExists.bind(gameBoard). However, to avoid this gameBoard.js => objectExist method is changed to arrow fucntion // line 42
+  );
+
+  const ghosts = [
+    new Ghost(5, 187, randomMovement, OBJECT_TYPE.BLINKY),
+    new Ghost(4, 208, randomMovement, OBJECT_TYPE.PINKY),
+    new Ghost(3, 229, randomMovement, OBJECT_TYPE.INKY),
+    new Ghost(2, 250, randomMovement, OBJECT_TYPE.CLYDE),
   ];
 
-  gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
-  document.addEventListener('keydown', (e) => {
-    pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard));
-    // objectExists will have to be binded to be able to reference => gameBoard.objectExists.bind(gameBoard). However, to avoid this gameBoard.js => objectExist method is changed to arrow fucntion // line 42
-  });
-
-  timer = setInterval(() => gameLoop(pacman), GLOBAL_SPEED);
+  timer = setInterval(() => gameLoop(pacman, ghosts), GLOBAL_SPEED);
 }
 
 // * Initialize Game
