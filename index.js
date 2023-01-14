@@ -1,4 +1,5 @@
 import { LEVEL, OBJECT_TYPE } from './setup';
+import { randmomMovement } from './ghostMove';
 
 // Classes
 import GameBoard from './GameBoard';
@@ -39,6 +40,12 @@ function startGame() {
   gameBoard.createGrid(LEVEL);
 
   const pacman = new Pacman(2, 287);
+  const ghost = [
+    new Ghost(5, 188, randmomMovement, OBJECT_TYPE.BLINKY),
+    new Ghost(4, 209, randmomMovement, OBJECT_TYPE.PINKY),
+    new Ghost(3, 230, randmomMovement, OBJECT_TYPE.INKY),
+    new Ghost(2, 251, randmomMovement, OBJECT_TYPE.CLYDE),
+  ];
 
   gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
   document.addEventListener('keydown', (e) => {
