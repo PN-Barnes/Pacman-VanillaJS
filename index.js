@@ -22,14 +22,39 @@ let gameWon = false;
 let powerActive = false;
 let powerActiveTimer = null;
 
-const gameOver = (pacman, grid) => {};
+const gameOver = (pacman, grid) => {
+  document.removeEventListener('keydown', (e) =>
+    pacman.handleKeyInput(e, gameBoard.objectExist)
+  );
 
-const checkCollision = (pacman, ghosts) => {};
+  gameBoard.showGameStatus(gameWin);
+};
+
+const checkCollision = (pacman, ghosts) => {
+  const collidedGhosts = ghosts.find((ghost) => pacman.pos === ghost.pos);
+
+  if (collidedGhosts) {
+    if (pacman.powerPill) {
+      gameBoard.removeObject(collidedGhosts.pos, [
+        OBJECT_TYPE.GHOST,
+        OBJECT_TYPE.SCARED,
+        collidedGhosts.name,
+      ]);
+      collidedGhosts.pos = collidedGhosts.startPos;
+      score += 100;
+    } else {
+      gameBoard.removeObject(pacman.pos, [OBJECT_TYPE.PACMAN]);
+      gameBoard.rotateDiv(pacman.pos, 0);
+      gameOver(pacman, gameGrid);
+    }
+  }
+};
 
 function gameLoop(pacman, ghosts) {
   gameBoard.moveCharacter(pacman);
-
+  checkCollision(pacman, ghosts);
   ghosts.forEach((ghost) => gameBoard.moveCharacter(ghost));
+  checkCollision(pacman, ghosts);
 }
 
 function startGame() {
