@@ -5,6 +5,13 @@ import { randomMovement } from './ghostmoves';
 import GameBoard from './GameBoard';
 import Pacman from './Pacman';
 import Ghost from './Ghost';
+// Sounds
+import soundDot from './sounds/munch.wav';
+import soundPill from './sounds/pill.wav';
+import soundGameStart from './sounds/game_start.wav';
+import soundGameOver from './sounds/death.wav';
+import soundGhost from './sounds/eat_ghost.wav';
+
 // Document Elements
 const gameGrid = document.querySelector('#game');
 const scoreTable = document.querySelector('#score');

@@ -596,7 +596,17 @@ var Ghost = /*#__PURE__*/function () {
 
 var _default = Ghost;
 exports.default = _default;
-},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js","./ghostmoves":"ghostmoves.js"}],"index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/toConsumableArray":"node_modules/@babel/runtime/helpers/toConsumableArray.js","@babel/runtime/helpers/classCallCheck":"node_modules/@babel/runtime/helpers/classCallCheck.js","@babel/runtime/helpers/createClass":"node_modules/@babel/runtime/helpers/createClass.js","./setup":"setup.js","./ghostmoves":"ghostmoves.js"}],"sounds/munch.wav":[function(require,module,exports) {
+module.exports = "/munch.50161df6.wav";
+},{}],"sounds/pill.wav":[function(require,module,exports) {
+module.exports = "/pill.d5173a33.wav";
+},{}],"sounds/game_start.wav":[function(require,module,exports) {
+module.exports = "/game_start.09b402f7.wav";
+},{}],"sounds/death.wav":[function(require,module,exports) {
+module.exports = "/death.1b6386ba.wav";
+},{}],"sounds/eat_ghost.wav":[function(require,module,exports) {
+module.exports = "/eat_ghost.09613325.wav";
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _setup = require("./setup");
@@ -609,9 +619,20 @@ var _Pacman = _interopRequireDefault(require("./Pacman"));
 
 var _Ghost = _interopRequireDefault(require("./Ghost"));
 
+var _munch = _interopRequireDefault(require("./sounds/munch.wav"));
+
+var _pill = _interopRequireDefault(require("./sounds/pill.wav"));
+
+var _game_start = _interopRequireDefault(require("./sounds/game_start.wav"));
+
+var _death = _interopRequireDefault(require("./sounds/death.wav"));
+
+var _eat_ghost = _interopRequireDefault(require("./sounds/eat_ghost.wav"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Classesss
+// Sounds
 // Document Elements
 var gameGrid = document.querySelector('#game');
 var scoreTable = document.querySelector('#score');
@@ -718,7 +739,7 @@ function startGame() {
 
 
 startButton.addEventListener('click', startGame);
-},{"./setup":"setup.js","./ghostmoves":"ghostmoves.js","./GameBoard":"GameBoard.js","./Pacman":"Pacman.js","./Ghost":"Ghost.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./setup":"setup.js","./ghostmoves":"ghostmoves.js","./GameBoard":"GameBoard.js","./Pacman":"Pacman.js","./Ghost":"Ghost.js","./sounds/munch.wav":"sounds/munch.wav","./sounds/pill.wav":"sounds/pill.wav","./sounds/game_start.wav":"sounds/game_start.wav","./sounds/death.wav":"sounds/death.wav","./sounds/eat_ghost.wav":"sounds/eat_ghost.wav"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
