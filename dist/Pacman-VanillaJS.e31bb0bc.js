@@ -689,6 +689,13 @@ function gameLoop(pacman, ghosts) {
       return ghost.isScared = pacman.powerPill;
     });
   }
+
+  if (gameBoard.dotCount === 0) {
+    gameWon = true;
+    gameOver(pacman, ghosts);
+  }
+
+  scoreTable.innerHTML = score;
 }
 
 function startGame() {

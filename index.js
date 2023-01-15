@@ -83,6 +83,13 @@ function gameLoop(pacman, ghosts) {
     powerActive = pacman.powerPill;
     ghosts.forEach((ghost) => (ghost.isScared = pacman.powerPill));
   }
+
+  if (gameBoard.dotCount === 0) {
+    gameWon = true;
+    gameOver(pacman, ghosts);
+  }
+
+  scoreTable.innerHTML = score;
 }
 
 function startGame() {
