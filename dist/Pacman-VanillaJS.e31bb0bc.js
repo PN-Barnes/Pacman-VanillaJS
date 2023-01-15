@@ -664,6 +664,23 @@ function gameLoop(pacman, ghosts) {
     return gameBoard.moveCharacter(ghost);
   });
   checkCollision(pacman, ghosts);
+
+  if (gameBoard.objectExist(pacman.pos, _setup.OBJECT_TYPE.DOT)) {
+    gameBoard.removeObject(pacman.pos, [_setup.OBJECT_TYPE.DOT]);
+    gameBoard.dotCount--;
+    score += 10;
+  } // check if pacman eats a powerpill
+
+
+  if (gameBoard.objectExist(pacman.pos, _setup.OBJECT_TYPE.PILL)) {
+    gameBoard.removeObject(pacman.pos, [_setup.OBJECT_TYPE.PILL]);
+    pacman.powerpill = true;
+    score += 50;
+    clearTimeout(powerActiveTimer);
+    powerActiveTimer = setTimeout(function () {
+      return pacman.powerPill = false;
+    }, POWER_PILL_TIME);
+  }
 }
 
 function startGame() {
@@ -714,7 +731,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56174" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59759" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
