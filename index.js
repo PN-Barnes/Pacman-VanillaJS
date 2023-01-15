@@ -68,7 +68,7 @@ function gameLoop(pacman, ghosts) {
   if (gameBoard.objectExist(pacman.pos, OBJECT_TYPE.PILL)) {
     gameBoard.removeObject(pacman.pos, [OBJECT_TYPE.PILL]);
 
-    pacman.powerpill = true;
+    pacman.powerPill = true;
     score += 50;
 
     clearTimeout(powerActiveTimer);
@@ -76,6 +76,12 @@ function gameLoop(pacman, ghosts) {
       () => (pacman.powerPill = false),
       POWER_PILL_TIME
     );
+  }
+
+  // Change ghost scared or not depending on power pill
+  if (pacman.powerPill !== powerActive) {
+    powerActive = pacman.powerPill;
+    ghosts.forEach((ghost) => (ghost.isScared = pacman.powerPill));
   }
 }
 
