@@ -649,9 +649,15 @@ var score = 0;
 var timer = null;
 var gameWon = false;
 var powerActive = false;
-var powerActiveTimer = null;
+var powerActiveTimer = null; // Audio
+
+function playAudio(sound) {
+  var soundEffect = new Audio(sound);
+  soundEffect.play();
+}
 
 var gameOver = function gameOver(pacman, grid) {
+  playAudio(_death.default);
   document.removeEventListener('keydown', function (e) {
     return pacman.handleKeyInput(e, gameBoard.objectExist);
   });
@@ -667,6 +673,7 @@ var checkCollision = function checkCollision(pacman, ghosts) {
 
   if (collidedGhosts) {
     if (pacman.powerPill) {
+      playAudio(_eat_ghost.default);
       gameBoard.removeObject(collidedGhosts.pos, [_setup.OBJECT_TYPE.GHOST, _setup.OBJECT_TYPE.SCARED, collidedGhosts.name]);
       collidedGhosts.pos = collidedGhosts.startPos;
       score += 100;
@@ -687,6 +694,7 @@ function gameLoop(pacman, ghosts) {
   checkCollision(pacman, ghosts);
 
   if (gameBoard.objectExist(pacman.pos, _setup.OBJECT_TYPE.DOT)) {
+    playAudio(_munch.default);
     gameBoard.removeObject(pacman.pos, [_setup.OBJECT_TYPE.DOT]);
     gameBoard.dotCount--;
     score += 10;
@@ -694,6 +702,7 @@ function gameLoop(pacman, ghosts) {
 
 
   if (gameBoard.objectExist(pacman.pos, _setup.OBJECT_TYPE.PILL)) {
+    playAudio(_pill.default);
     gameBoard.removeObject(pacman.pos, [_setup.OBJECT_TYPE.PILL]);
     pacman.powerPill = true;
     score += 50;
@@ -720,6 +729,7 @@ function gameLoop(pacman, ghosts) {
 }
 
 function startGame() {
+  playAudio(_game_start.default);
   gameWon = false;
   powerActive = false;
   score = 0;
